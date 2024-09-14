@@ -18,7 +18,7 @@ public class MainFrame extends JFrame {
 	static {
 		DisplaydeAlgoritmo = new JLabel(); 
 		DisplaydeAlgoritmo.setName("Display");
-		DisplaydeAlgoritmo.setText("Please choose a starting vertex");
+		DisplaydeAlgoritmo.setText("Por favor, escolha um vértice inicial");
 		DisplaydeAlgoritmo.setForeground(MainFrame.COR_DE_FUNDO);
 		DisplaydeAlgoritmo.setBackground(Color.white);
 		DisplaydeAlgoritmo.setHorizontalAlignment(SwingConstants.CENTER);
