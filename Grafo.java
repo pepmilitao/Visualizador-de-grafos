@@ -1,32 +1,24 @@
-package entities2;
+package entities;
 import java.util.*;
 
-// outra possivel implementação:
-// https://www.youtube.com/watch?v=jq0N1LDOTlw
 
-public class Grafo<T> {
-	private Map<T, List<T>> map = new HashMap<>(); 
+public class Grafo {
+	private Map<Vertice, List<Vertice>> map = new HashMap<>(); 
+	private ArrayList<Aresta> arestas = new ArrayList<>(); 
 	
-	public void adicionarVertice(T vertice) {
+	public void adicionarVertice(Vertice vertice) {
 		
-		map.put(vertice, new LinkedList<T>()); 
+		map.put(vertice, new LinkedList<Vertice>()); 
 	
 	}
 	
-	public void adicionarAresta(T vertice1, T vertice2) {
-		
-		if(!map.containsKey(vertice1)) { //Se o vertice 1 não existe, temos que adicioná-lo. 
-			adicionarVertice(vertice1); //Adicionando o vértice ao grafo
-		}
-		if(!map.containsKey(vertice2)) { //Se o vertice 2 não existe, temos que adicioná-lo. 
-			adicionarVertice(vertice2); //Adicionando o vértice ao grafo
-		}
+	public void adicionarAresta(Vertice vertice1, Vertice vertice2) {
 		map.get(vertice1).add(vertice2); // adiciona vertice 2 à lista associada com vertice 1
-		map.get(vertice2).add(vertice1); // adiciona vertice 1 à lista associada com vertice 2
+		arestas.add(new Aresta(vertice1, vertice2)); 
 		
 	}
 	
-	public boolean temAresta(T vertice1, T vertice2) {
+	public boolean temAresta(Vertice vertice1, Vertice vertice2) {
 		
 		if (map.get(vertice1).contains(vertice2)) {
 			return true;
@@ -36,12 +28,12 @@ public class Grafo<T> {
 		}
 	}
 	
-	public ArrayList<T> vizinhos(T vertice) {
-		ArrayList<T> vizinhos = new ArrayList<T>(); 
+	public ArrayList<Vertice> vizinhos(Vertice vertice) {
+		ArrayList<Vertice> vizinhos = new ArrayList<Vertice>(); 
 		if(!map.containsKey(vertice)) {
 			return null; 
 		}
-		for(T u:map.get(vertice)) {
+		for(Vertice u:map.get(vertice)) {
 			vizinhos.add(u);
 		}
 		return vizinhos; 
