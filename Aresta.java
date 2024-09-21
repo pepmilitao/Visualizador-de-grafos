@@ -44,8 +44,8 @@ public class Aresta extends JComponent {
 
     private boolean setCoordAresta() {
         // X e Y
-        Vertice coordY;  // To determine the y-coordinate
-        Vertice coordX;  // To determine the x-coordinate
+        Vertice coordY;  // determina coord y
+        Vertice coordX;  // determina coord x
         //operadores ternários!
         coordY = this.vertice1.getCoordY() < this.vertice2.getCoordY() ? vertice1 : vertice2; // pega o menor y
         coordX = this.vertice1.getCoordX() < this.vertice2.getCoordX() ? vertice1 : vertice2; // pega o menor x
