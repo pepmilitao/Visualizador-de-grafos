@@ -44,6 +44,9 @@ O controlador atua como intermediário entre o modelo e a visão, gerenciando a 
 - `executar_busca()`: executa o algoritmo de busca e atualiza a visualização.
 
 ## Fluxo do Projeto
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6f289692-5240-4904-874e-407e0e94d47f" width="400"/>
+</p>
 
 ### Início do Programa
 O programa inicia e a classe `Main` cria uma nova instância de `MainFrame`.
