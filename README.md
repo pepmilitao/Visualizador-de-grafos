@@ -10,6 +10,8 @@ Este projeto consiste em um visualizador de grafos em Java utilizando o padrão 
 O modelo consiste nas classes que representam os componentes fundamentais do grafo, incluindo nós e arestas. As principais classes são:
 
 - **`Grafo.java`**: Representa a estrutura do grafo, contendo métodos para adicionar vértices e arestas, além de implementar a lógica de busca em profundidade.
+- **`Vertice.java`**: Representa um vértice no grafo e cuida da sua renderização gráfica.
+- **`Aresta.java`**: Representa uma aresta entre dois vértices e cuida da sua visualização.
 
 #### Atributos:
 - `map`: um `Map` que associa cada vértice a uma lista de seus vizinhos.
@@ -25,9 +27,7 @@ O modelo consiste nas classes que representam os componentes fundamentais do gra
 A camada de visão é responsável pela interface do usuário e pela ilustração do grafo. As classes nesta camada lidam com a entrada do usuário e a visualização das operações realizadas.
 
 #### Principais Classes e Funcionalidades:
-- **`MainFrame.java`**: Cria a janela principal do aplicativo, onde o grafo é visualizado. Gerencia menus e exibe informações ao usuário.
-- **`Vertice.java`**: Representa um vértice no grafo e cuida da sua renderização gráfica.
-- **`Aresta.java`**: Representa uma aresta entre dois vértices e cuida da sua visualização.
+- **`GrafoView.java`**: Representa o grafo e cuida da sua renderização gráfica.
 - **`Modo.java`**: Enum para definir os modos de operação do aplicativo, como adicionar ou remover vértices e arestas.
 
 ### Controller (Controlador)
