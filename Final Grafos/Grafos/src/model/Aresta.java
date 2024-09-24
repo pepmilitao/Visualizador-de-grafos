@@ -8,10 +8,10 @@ import view.*;
 public class Aresta extends JComponent {
 	
     protected Color cor_aresta = Color.white;
-	private Vertice vertice1;
+    private Vertice vertice1;
     private Vertice vertice2;
     private JLabel label;
-	private boolean topEqualsLeft;
+    private boolean topEqualsLeft;
     protected static ArrayList<Aresta> arestas = new ArrayList<>();
 
     public Aresta(Vertice vertice1, Vertice vertice2) {
