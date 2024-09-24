@@ -88,7 +88,7 @@ As ações do usuário chamam métodos na classe `Grafo`:
 ### Finalização
 - O usuário pode fechar o programa a qualquer momento, encerrando a aplicação.
 
-# Instruções para Compilação e Execução
+# Instruções para Execução
 
 ## Pré-requisitos
 
