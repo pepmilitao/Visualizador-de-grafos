@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*; 
-import entities.Grafo;
+import model.Grafo;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {

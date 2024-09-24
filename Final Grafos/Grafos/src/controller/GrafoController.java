@@ -1,7 +1,6 @@
 package controller;
 
-import entities.Grafo;
-import entities.Vertice;
+import model.*;
 import view.MainFrame;
 
 import javax.swing.*;
