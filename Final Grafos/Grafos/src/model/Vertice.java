@@ -9,7 +9,7 @@ import view.MainFrame;
 @SuppressWarnings("serial")
 public class Vertice extends JPanel {	
 	
-	protected static final int TAMANHO = 50;
+    protected static final int TAMANHO = 50;
     protected Color cor_vertice = Color.white;
     public static final Map<String, Vertice> vertices = new HashMap<>();
     private String id;
