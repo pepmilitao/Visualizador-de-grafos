@@ -7,11 +7,17 @@ public class Grafo {
 	private Map<Vertice, List<Vertice>> vertices = new HashMap<>(); 
 	private ArrayList<Aresta> arestas = new ArrayList<>();
 	private ArrayList<Object> busca = new ArrayList<>(); 
+
+	public Map<Vertice, List<Vertice>> getVertices(){
+		return vertices;
+	}
+
+	public ArrayList<Aresta> getArestas(){
+		return arestas;
+	}
 	
 	public void adicionarVertice(Vertice vertice) {
-		
 		vertices.put(vertice, new LinkedList<Vertice>()); 
-	
 	}
 	
 	public void adicionarAresta(Vertice vertice1, Vertice vertice2) {

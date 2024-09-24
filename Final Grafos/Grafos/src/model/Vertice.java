@@ -3,7 +3,8 @@ package model;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
-import view.MainFrame;
+
+import controller.MainFrame;
 
 
 @SuppressWarnings("serial")

@@ -2,6 +2,8 @@ package model;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
+
+import controller.MainFrame;
 import view.*;
 
 @SuppressWarnings("serial")

@@ -1,10 +1,9 @@
 package controller;
-import javax.swing.*;
-import java.awt.*;
-import model.*;
-import view.*;
 
-public class GrafoController extends JFrame {
+import javax.swing.*;
+import java.awt.*; 
+
+public class MainFrame extends JFrame {
 	protected static final int LARGURA = 800; // constante para largura do painel
 	protected static final int ALTURA = 600; // constante para altura do painel
 	public static final Color COR_DE_FUNDO = Color.black; // constante para a cor de fundo
@@ -25,7 +24,7 @@ public class GrafoController extends JFrame {
 		DisplaydeAlgoritmo.setLayout(new FlowLayout(FlowLayout.TRAILING));
 		DisplaydeAlgoritmo.setVisible(false);
 	}
-	public GrafoController() {
+	public MainFrame() {
 		super("Visualizador de Buscas em Grafos"); // super cria um frame invisivel com o titulo dado
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		setSize(MainFrame.LARGURA, MainFrame.ALTURA); 
