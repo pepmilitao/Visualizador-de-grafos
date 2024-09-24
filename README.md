@@ -88,3 +88,16 @@ As ações do usuário chamam métodos na classe `Grafo`:
 ### Finalização
 - O usuário pode fechar o programa a qualquer momento, encerrando a aplicação.
 
+# Instruções para Compilação e Execução
+
+## Pré-requisitos
+
+Java Development Kit (JDK) instalado em sua máquina. Verifique a instalação do Java com o comando:
+  ```bash
+  java -version
+  ```
+## Execução
+Como os arquivos compilados já estão localizados na pasta \bin. Navegue até esta pasta e execute o seguinte comando:
+```bash
+  java -cp "C:\Diretório\Onde\Foi\Baixado\O\Repositório\Visualizador-de-grafos\Final Grafos\Grafos\bin" view.Main
+  ```
