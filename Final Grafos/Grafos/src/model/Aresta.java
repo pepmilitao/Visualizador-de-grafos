@@ -4,7 +4,6 @@ import java.util.*;
 import javax.swing.*;
 
 import controller.MainFrame;
-import view.*;
 
 @SuppressWarnings("serial")
 public class Aresta extends JComponent {
@@ -47,20 +46,22 @@ public class Aresta extends JComponent {
 
     private boolean setCoordAresta() {
         // X e Y
-        Vertice coordY;  // determina coord y
+        Vertice coordY;   // determina coord y
         Vertice coordX;  // determina coord x
+        Vertice maiorX; //determina o vértice de maior X
         //operadores ternários!
         coordY = this.vertice1.getCoordY() < this.vertice2.getCoordY() ? vertice1 : vertice2; // pega o menor y
         coordX = this.vertice1.getCoordX() < this.vertice2.getCoordX() ? vertice1 : vertice2; // pega o menor x
+        maiorX = this.vertice1.getCoordX() > this.vertice2.getCoordX() ? vertice1 : vertice2; // pega o maior x
         int extra = Vertice.TAMANHO / 2;
 
-        int largura = Math.abs(this.vertice1.getCoordX() - this.vertice2.getCoordX());
+        int largura = Math.abs(this.vertice1.getCoordX() - this.vertice2.getCoordX()) - extra*2;
         int altura = Math.abs(this.vertice1.getCoordY() - this.vertice2.getCoordY());
 
-        this.setBounds(coordX.getCoordX() + extra - 2,
-                coordY.getCoordY() + extra - 2,
-                largura + 4,
-                altura + 4);
+        this.setBounds(coordX.getCoordX() + extra,
+                coordY.getCoordY(),
+                largura,
+                altura);
 
         return coordY == coordX;
     }

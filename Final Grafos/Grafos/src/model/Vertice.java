@@ -27,13 +27,16 @@ public class Vertice extends JPanel {
         this.label.setName("VertexLabel " + this.id);
         this.setLabel();
 
+        int offsetX = Vertice.TAMANHO / 2;
+        int offsetY = Vertice.TAMANHO / 2;
+
         
         //Inicializa um Label para o vértice
         this.setName("Vertex " + this.id);
         this.setBackground(MainFrame.COR_DE_FUNDO);
         this.setOpaque(false);
         this.setLayout(null);
-        this.setBounds(x, y, Vertice.TAMANHO, Vertice.TAMANHO);
+        this.setBounds(x - offsetX, y - offsetY, Vertice.TAMANHO, Vertice.TAMANHO);
     }
 
     public int getCoordX() {
@@ -52,7 +55,7 @@ public class Vertice extends JPanel {
     protected void paintComponent(Graphics G) {
         super.paintComponent(G);
         G.setColor(this.cor_vertice);
-        G.fillOval(0, 0, Vertice.TAMANHO, Vertice.TAMANHO);
+        G.fillOval(0,0, Vertice.TAMANHO, Vertice.TAMANHO);
     }
 
     private void setLabel() {

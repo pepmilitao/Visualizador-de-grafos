@@ -50,7 +50,7 @@ public class MainFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Component clicado =  view.getComponentAt(e.getPoint());
-				if (!(clicado instanceof Vertice) && !(clicado instanceof Aresta)) { //se não tiver clicado em vértice nem aresta, ativa o controller de criar um vértice
+				if (!(clicado instanceof Vertice)) { //se não tiver clicado em vértice nem aresta, ativa o controller de criar um vértice
 
 					String input = JOptionPane.showInputDialog("Digite o nome do vértice:");
 					if (input != null && !input.equals("") && !grafo.verticeRepetido(input)) {
