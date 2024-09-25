@@ -48,11 +48,9 @@ public class Aresta extends JComponent {
         // X e Y
         Vertice coordY;   // determina coord y
         Vertice coordX;  // determina coord x
-        Vertice maiorX; //determina o vértice de maior X
         //operadores ternários!
         coordY = this.vertice1.getCoordY() < this.vertice2.getCoordY() ? vertice1 : vertice2; // pega o menor y
         coordX = this.vertice1.getCoordX() < this.vertice2.getCoordX() ? vertice1 : vertice2; // pega o menor x
-        maiorX = this.vertice1.getCoordX() > this.vertice2.getCoordX() ? vertice1 : vertice2; // pega o maior x
         int extra = Vertice.TAMANHO / 2;
 
         int largura = Math.abs(this.vertice1.getCoordX() - this.vertice2.getCoordX()) - extra*2;
