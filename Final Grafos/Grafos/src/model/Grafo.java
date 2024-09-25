@@ -88,4 +88,16 @@ public class Grafo {
 		return busca;
 	}
 
+	public Boolean verticeRepetido(String id){
+		Set<Vertice> vertices = this.vertices.keySet();
+
+		for (Vertice v : vertices) {
+			if (v.getId().equals(id)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 }
