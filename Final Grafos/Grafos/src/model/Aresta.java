@@ -56,6 +56,10 @@ public class Aresta extends JComponent {
         int largura = Math.abs(this.vertice1.getCoordX() - this.vertice2.getCoordX()) - extra*2;
         int altura = Math.abs(this.vertice1.getCoordY() - this.vertice2.getCoordY());
 
+        if (largura <= 0) {
+            largura += extra*2;
+        }
+
         this.setBounds(coordX.getCoordX() + extra,
                 coordY.getCoordY(),
                 largura,
