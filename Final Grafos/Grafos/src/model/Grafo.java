@@ -2,6 +2,8 @@ package model;
 import java.awt.Color;
 import java.util.*;
 
+import view.GrafoView;
+
 
 public class Grafo {
 	private Map<Vertice, List<Vertice>> vertices = new HashMap<>(); 
@@ -64,8 +66,18 @@ public class Grafo {
 		}
 	}
 
-	public List<Object> buscaProfundidade(Vertice verticeInicial) {
+	private void pausaExecucao(GrafoView grafo) {
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		grafo.refresh();
+	}
+
+	public List<Object> buscaProfundidade(Vertice verticeInicial, GrafoView grafo) {
 		verticeInicial.setCorVertice(1);
+		pausaExecucao(grafo);
 		busca.add(verticeInicial);
 		Aresta arestaaPintar = null;
 		List<Vertice> vizinhos = vertices.get(verticeInicial);
@@ -76,15 +88,18 @@ public class Grafo {
 					if (aresta.getName().equals(arestaPintar)){
 						arestaaPintar = aresta; 
 						arestaaPintar.setCorAresta(1);
+						pausaExecucao(grafo);
 						busca.add(arestaaPintar);
 						break;
 					}
 				}
-				buscaProfundidade(verticeVizinho);
+				buscaProfundidade(verticeVizinho, grafo);
 			}
 		}
 		verticeInicial.setCorVertice(2);
-		arestaaPintar.setCorAresta(2); 
+		pausaExecucao(grafo);
+		arestaaPintar.setCorAresta(2);
+		pausaExecucao(grafo);
 		return busca;
 	}
 
@@ -98,6 +113,15 @@ public class Grafo {
 		}
 
 		return false;
+	}
+
+	public void resetGrafo(Map<Vertice, List<Vertice>> vertices, ArrayList<Aresta> arestas, ArrayList<Object> busca) {
+		vertices.clear(); 
+		arestas.clear();
+		busca.clear(); 
+	}
+	public void resetBusca(ArrayList<Object> busca) {
+		busca.clear();
 	}
 
 }

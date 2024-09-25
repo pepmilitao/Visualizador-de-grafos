@@ -5,7 +5,7 @@ import javax.swing.*;
 import model.Aresta;
 import model.Grafo;
 import model.Vertice;
-import view.GrafoView;
+import view.*;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -87,7 +87,26 @@ public class MainFrame extends JFrame {
 	}
 	private void setJMenu() {
 		JMenuBar menuBar = new JMenuBar(); 
-		this.setJMenuBar(menuBar); 
+		this.setJMenuBar(menuBar);
+
+		// Criar e adicionar menus para o dropdown
+		JMenu grafoMenu = new JMenu("Grafo");
+		JMenu buscaMenu = new JMenu("Busca");
+		menuBar.add(grafoMenu);
+		menuBar.add(buscaMenu);
+
+		// Criar e adicionar itens dos menus
+		JMenuItem reset = new JMenuItem("Novo");
+		JMenuItem random = new JMenuItem("Gerar grafo aleatório");
+		JMenuItem edicao = new JMenuItem("Editar");
+		JMenuItem busca = new JMenuItem("Executar busca em profundidade");
+
+		grafoMenu.add(reset);
+		grafoMenu.add(random);
+		grafoMenu.add(edicao);
+		buscaMenu.add(busca);
+
+		
 		
 		// na barra de menus, temos que fazer um menu para:
 		// 1. começar um grafo do zero (limpar a tela)
