@@ -44,8 +44,11 @@ O controlador atua como intermediário entre o modelo e a visão, gerenciando a 
 - `executar_busca()`: executa o algoritmo de busca e atualiza a visualização.
 
 ## Fluxo do Projeto
+
+É possível visualizar o fluxo do projeto em UML acessando o arquivo [fluxo.wsd](https://github.com/pepmilitao/Visualizador-de-grafos/blob/main/fluxo.wsd) e o executando com o auxílio de uma ferramenta que suporte PlantUML (como um plugin para o Visual Studio Code ou um site online) para gerar o diagrama.
+
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6f289692-5240-4904-874e-407e0e94d47f" width="400"/>
+  <img src="https://github.com/user-attachments/assets/447620e5-aba5-445c-a56e-cb7067b95ea1f" width="400"/>
 </p>
 
 ### Início do Programa
