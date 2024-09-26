@@ -26,6 +26,8 @@ public class GrafoView extends JPanel{
     }
 
     private void renderGrafo(Graphics g){
+        removeAll();
+
         Set<Vertice> vertices = grafo.getVertices().keySet();
         List<Aresta> arestas = grafo.getArestas();
 

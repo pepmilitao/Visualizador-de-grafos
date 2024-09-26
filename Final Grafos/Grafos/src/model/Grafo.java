@@ -17,6 +17,10 @@ public class Grafo {
 	public ArrayList<Aresta> getArestas(){
 		return arestas;
 	}
+
+	public ArrayList<Object> getBusca(){
+		return busca;
+	}
 	
 	public void adicionarVertice(Vertice vertice) {
 		vertices.put(vertice, new LinkedList<Vertice>()); 
@@ -115,7 +119,7 @@ public class Grafo {
 		return false;
 	}
 
-	public void resetGrafo(Map<Vertice, List<Vertice>> vertices, ArrayList<Aresta> arestas, ArrayList<Object> busca) {
+	public void resetGrafo() {
 		vertices.clear(); 
 		arestas.clear();
 		busca.clear(); 
