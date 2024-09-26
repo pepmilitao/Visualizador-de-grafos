@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Set;
 import java.util.List;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import model.Aresta;
 import model.Grafo;
@@ -26,6 +26,8 @@ public class GrafoView extends JPanel{
     }
 
     private void renderGrafo(Graphics g){
+        removeAll();
+
         Set<Vertice> vertices = grafo.getVertices().keySet();
         List<Aresta> arestas = grafo.getArestas();
 

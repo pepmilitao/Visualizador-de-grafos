@@ -94,5 +94,5 @@ public class Aresta extends JComponent {
     	else if (Identificador == 2) {
     		this.cor_aresta = Color.black;
     	}
-}
+    }
 }

@@ -5,9 +5,11 @@ import javax.swing.*;
 import model.Aresta;
 import model.Grafo;
 import model.Vertice;
-import view.GrafoView;
+import view.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent; 
 
@@ -21,6 +23,8 @@ public class MainFrame extends JFrame {
 	private static final JLabel DisplaydeAlgoritmo; 
 	//private Grafo painelGrafo;
 	private Vertice verticeSelecionado = null;
+	private Grafo grafo;
+	private GrafoView view;
 	
 	static {
 		DisplaydeAlgoritmo = new JLabel(); 
@@ -39,10 +43,13 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		setSize(MainFrame.LARGURA, MainFrame.ALTURA); 
 		setLayout(new BorderLayout());
-		setResizable(false); //Permitir ou não mudar o tamanho da tela!
+		setResizable(false); // Permitir ou não mudar o tamanho da tela!
+		setLocationRelativeTo(null); // A tela aparecerá no centro da tela
 		setModoJLabel(); 
 		// TO DO: Setar o modo, dar display no grafo, dar display no display de algoritmo
-		setJMenu();
+		setMenu();
+		this.grafo = grafo;
+		this.view = view;
 
 		add(view, BorderLayout.CENTER);
 
@@ -66,34 +73,141 @@ public class MainFrame extends JFrame {
 					verticeSelecionado = null;
 
 				}
-				else if (!(clicado instanceof Aresta)){ //se foi num vértice, ativa o controller de criar aresta
-
-						if (verticeSelecionado == null) {
-							verticeSelecionado = (Vertice)clicado;
-							System.out.println(verticeSelecionado);
-						}
-						else{
-							grafo.adicionarAresta(verticeSelecionado, (Vertice)clicado);
-							view.refresh();
-							verticeSelecionado = null;
-						}
-
-					}
-				}
+			}
 		});
 
 		setVisible(true); 	
 		setBackground(Color.black);
 	}
-	private void setJMenu() {
-		JMenuBar menuBar = new JMenuBar(); 
-		this.setJMenuBar(menuBar); 
+
+	private void setMenu(){
+		JPanel menuPanel = new JPanel();
+        menuPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+		JButton edgeButton = new JButton("Adicionar Aresta");
+		JButton removeButton = new JButton("Remover");
+        JButton resetButton = new JButton("Limpar");
+        JButton randomButton = new JButton("Gerar grafo aleatório");
+        JButton buscaButton = new JButton("Busca em profundidade");
+
+		edgeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String input = JOptionPane.showInputDialog("Digite os vértices da aresta (Separados por um espaço)");
+
+				String[] destinos = input.split("\\s+");
+
+				 Vertice vertice1 = null;
+				 Vertice vertice2 = null;
+				if (destinos.length != 2) {
+					JOptionPane.showMessageDialog(null, "ERRO: input inválido");
+				}
+				else{
+					for (Component v : view.getComponents()) {
+						if (v instanceof Vertice && ((Vertice)v).getId().equals(destinos[0])) {
+							vertice1 = (Vertice)v;
+						}
+	
+						if (v instanceof Vertice && ((Vertice)v).getId().equals(destinos[1])) {
+							vertice2 = (Vertice)v;
+						}
+					}
+					if (vertice1 != null && vertice2 != null) {
+						grafo.adicionarAresta(vertice1, vertice2);
+						view.refresh();
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "ERRO: vértices inválidos");
+					}
+				}
+			}
+		});
+
+		removeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String input = JOptionPane.showInputDialog("Digite o nome de um vértice, para removê-lo, ou dois (separados por um espaço) para remover uma aresta");
+
+				if (input != null && input.matches("^[a-zA-Z0-9]+( [a-zA-Z0-9]+)?$")) {
+					try {
+						String[] parts = input.split(" ");
+						if (parts.length == 1) {
+							grafo.removerVertice(input);
+							view.refresh();
+						} else if (parts.length == 2) {
+							String id1 = parts[0];
+							String id2 = parts[1];
+								
+							grafo.removerAresta(grafo.acharVerticePorId(id1), grafo.acharVerticePorId(id2));
+							view.refresh();
+						}
+					} catch (Exception err) {
+						JOptionPane.showMessageDialog(null, err.getMessage());
+					}
+				} else {
+					// Caso não seja uma entrada válida, mostrar mensagem de erro
+					JOptionPane.showMessageDialog(null, "Erro: Entrada inválida. Insira um vértice ou dois vértices separados por um espaço.");
+				}
+			}
+		});
+
+		resetButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				grafo.resetGrafo();
+				view.refresh();
+			}
+		});
+
+		randomButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				grafo.resetGrafo();
+				String input = JOptionPane.showInputDialog("Digite o número de vértices do grafo");
 		
-		// na barra de menus, temos que fazer um menu para:
-		// 1. começar um grafo do zero (limpar a tela)
-		// 2. escolher o modo (add vértice, add aresta, remove vertice, remove aresta)
-		// 3. escolher qual algoritmo iremos rodar
+				try {
+					int numVertices = Integer.parseInt(input);
+					if (numVertices < 0) {
+						throw new IllegalArgumentException("O número de vértices deve ser maior que -1.");
+					}
+					
+					grafo.grafoAleatorio(numVertices);
+					view.refresh();
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "Erro: Digite um número inteiro válido.");
+				} catch (IllegalArgumentException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
+			}
+		});
+
+		buscaButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String inicial = JOptionPane.showInputDialog("Digite o vértice que começará a busca");
+				boolean found = false;
+				for (Vertice v : grafo.getVertices().keySet()) {
+					if (v.getId().equals(inicial)) {
+						found = true;
+						grafo.buscaProfundidade(v, view);
+						break;
+					}
+				}
+				if (!found) {
+					JOptionPane.showMessageDialog(null, "ERRO: Digite o id de um vértice que está no grafo");
+				}
+			}
+		});
+
+		menuPanel.add(edgeButton);
+		menuPanel.add(removeButton);
+        menuPanel.add(resetButton);
+        menuPanel.add(randomButton);
+        menuPanel.add(buscaButton);
+
+        this.add(menuPanel, BorderLayout.SOUTH);
 	}
+
 	private void setModoJLabel() {
 		modoLabel = new JLabel();
 		this.add(modoLabel, BorderLayout.NORTH);
