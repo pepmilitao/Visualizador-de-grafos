@@ -78,43 +78,15 @@ public class MainFrame extends JFrame {
 		setVisible(true); 	
 		setBackground(Color.black);
 	}
-	/*private void setJMenu() {
-		JMenuBar menuBar = new JMenuBar(); 
-		this.setJMenuBar(menuBar);
-
-		// Criar e adicionar menus para o dropdown
-		JMenu grafoMenu = new JMenu("Grafo");
-		JMenu buscaMenu = new JMenu("Busca");
-		menuBar.add(grafoMenu);
-		menuBar.add(buscaMenu);
-
-		// Criar e adicionar itens dos menus
-		JMenuItem reset = new JMenuItem("Novo");
-		JMenuItem random = new JMenuItem("Gerar grafo aleatório");
-		JMenuItem edicao = new JMenuItem("Editar");
-		JMenuItem busca = new JMenuItem("Executar busca em profundidade");
-
-		grafoMenu.add(reset);
-		grafoMenu.add(random);
-		grafoMenu.add(edicao);
-		buscaMenu.add(busca);
-
-		
-		
-		// na barra de menus, temos que fazer um menu para:
-		// 1. começar um grafo do zero (limpar a tela)
-		// 2. escolher o modo (add vértice, add aresta, remove vertice, remove aresta)
-		// 3. escolher qual algoritmo iremos rodar
-	}*/
 
 	private void setMenu(){
 		JPanel menuPanel = new JPanel();
         menuPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
 		JButton edgeButton = new JButton("Adicionar Aresta");
-        JButton resetButton = new JButton("Novo");
+		JButton removeButton = new JButton("Remover");
+        JButton resetButton = new JButton("Limpar");
         JButton randomButton = new JButton("Gerar grafo aleatório");
-        JButton editButton = new JButton("Editar");
         JButton buscaButton = new JButton("Executar busca em profundidade");
 
 		edgeButton.addActionListener(new ActionListener() {
@@ -150,6 +122,34 @@ public class MainFrame extends JFrame {
 			}
 		});
 
+		removeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String input = JOptionPane.showInputDialog("Digite o nome de um vértice, para removê-lo, ou dois (separados por um espaço) para remover uma aresta");
+
+				if (input != null && input.matches("^[a-zA-Z0-9]+( [a-zA-Z0-9]+)?$")) {
+					try {
+						String[] parts = input.split(" ");
+						if (parts.length == 1) {
+							grafo.removerVertice(input);
+							view.refresh();
+						} else if (parts.length == 2) {
+							String id1 = parts[0];
+							String id2 = parts[1];
+								
+							grafo.removerAresta(grafo.acharVerticePorId(id1), grafo.acharVerticePorId(id2));
+							view.refresh();
+						}
+					} catch (Exception err) {
+						JOptionPane.showMessageDialog(null, err.getMessage());
+					}
+				} else {
+					// Caso não seja uma entrada válida, mostrar mensagem de erro
+					JOptionPane.showMessageDialog(null, "Erro: Entrada inválida. Insira um vértice ou dois vértices separados por um espaço.");
+				}
+			}
+		});
+
 		resetButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -163,16 +163,27 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				grafo.resetGrafo();
 				String input = JOptionPane.showInputDialog("Digite o número de vértices do grafo");
-
-				grafo.grafoAleatorio(Integer.parseInt(input));
-				view.refresh();
+		
+				try {
+					int numVertices = Integer.parseInt(input);
+					if (numVertices < 0) {
+						throw new IllegalArgumentException("O número de vértices deve ser maior que -1.");
+					}
+					
+					grafo.grafoAleatorio(numVertices);
+					view.refresh();
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "Erro: Digite um número inteiro válido.");
+				} catch (IllegalArgumentException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
 			}
 		});
 
 		menuPanel.add(edgeButton);
+		menuPanel.add(removeButton);
         menuPanel.add(resetButton);
         menuPanel.add(randomButton);
-        menuPanel.add(editButton);
         menuPanel.add(buscaButton);
 
         this.add(menuPanel, BorderLayout.SOUTH);
