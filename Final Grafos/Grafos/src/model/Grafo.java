@@ -102,44 +102,55 @@ public class Grafo {
 		throw new Exception("O id não foi encontrado");
 	}
 
-	private void pausaExecucao(GrafoView view) {
-		Timer timer = new Timer(500, e -> {
-			view.refresh();
-		});
-		timer.setRepeats(false);
-		timer.start();
-	}
-
-	public List<Object> buscaProfundidade(Vertice verticeInicial, GrafoView view) {
-		verticeInicial.setCorVertice(1);
-		pausaExecucao(view);
-		busca.add(verticeInicial);
-		Aresta arestaaPintar = null;
-		List<Vertice> vizinhos = vertices.get(verticeInicial);
-		for (Vertice verticeVizinho:vizinhos){
-			if (verticeVizinho.getColor().equals(Color.white)) {
-				String arestaPintar1 = ("Aresta <" + verticeInicial.getId() + " -> " + verticeVizinho.getId() + ">"); 
-				String arestaPintar2 = ("Aresta <" + verticeVizinho.getId() + " -> " + verticeInicial.getId() + ">");
-				// a aresta pode estar no formato 12 ou 21, precisamos considerar ambos os casos para saber quando pintar
-				for (Aresta aresta:arestas){
-					if (aresta.getName().equals(arestaPintar1) || aresta.getName().equals(arestaPintar2)){
-						arestaaPintar = aresta; 
-						arestaaPintar.setCorAresta(1);
-						pausaExecucao(view);
-						busca.add(arestaaPintar);
+	public void buscaProfundidade(Vertice verticeInicial, GrafoView view) {
+		Stack<Vertice> pilha = new Stack<>(); // Usar uma pilha para controlar a busca
+		pilha.push(verticeInicial);
+		verticeInicial.setCorVertice(1); // Pinta o vértice como visitado
+		busca.add(verticeInicial); // Adiciona à lista de busca
+	
+		Timer timer = new Timer(500, null); // Cria um timer com intervalo de 500ms
+		timer.addActionListener(e -> {
+			if (!pilha.isEmpty()) {
+				Vertice atual = pilha.peek();
+				List<Vertice> vizinhos = vizinhos(atual);
+				boolean encontrouVizinhoBranco = false;
+	
+				// Tenta explorar todos os vizinhos
+				for (Vertice vizinho : vizinhos) {
+					if (vizinho.getColor().equals(Color.white)) {
+						vizinho.setCorVertice(1); // Marca como visitado (cinza)
+						busca.add(vizinho); // Adiciona à lista de busca
+						pilha.push(vizinho); // Adiciona o vizinho à pilha para ser processado depois
+	
+						// Pinta a aresta conectada
+						String arestaPintar1 = ("Aresta <" + verticeInicial.getId() + " -> " +vizinho.getId() + ">"); 
+						String arestaPintar2 = ("Aresta <" + vizinho.getId() + " -> " + verticeInicial.getId() + ">");
+						for (Aresta aresta:arestas){
+						if (aresta.getName().equals(arestaPintar1) || aresta.getName().equals(arestaPintar2)) {
+							aresta.setCorAresta(1); // Aresta visitada
+							busca.add(aresta);
+						}}
+	
+						encontrouVizinhoBranco = true;
+						break; // Sai do loop para processar um vizinho de cada vez
 					}
 				}
-				buscaProfundidade(verticeVizinho, view);
+	
+				if (!encontrouVizinhoBranco) {
+					atual.setCorVertice(2); // Pinta o vértice como completamente processado (preto)
+					busca.add(atual);
+					pilha.pop(); // Remove o vértice atual da pilha
+				}
+	
+				view.refresh();
+			} else {
+				timer.stop(); // Para o timer quando não há mais vértices a processar
 			}
-		}
-		verticeInicial.setCorVertice(2);
-		pausaExecucao(view);
-		if (arestaaPintar != null) {
-			arestaaPintar.setCorAresta(2); 
-			pausaExecucao(view);
-		}
-		return busca;
+		});
+	
+		timer.start(); // Inicia o timer
 	}
+
 
 	public Boolean verticeRepetido(String id){
 		Set<Vertice> vertices = this.vertices.keySet();
