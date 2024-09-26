@@ -72,20 +72,7 @@ public class MainFrame extends JFrame {
 					verticeSelecionado = null;
 
 				}
-				else if (!(clicado instanceof Aresta)){ //se foi num vértice, ativa o controller de criar aresta
-
-						if (verticeSelecionado == null) {
-							verticeSelecionado = (Vertice)clicado;
-							System.out.println(verticeSelecionado);
-						}
-						else{
-							grafo.adicionarAresta(verticeSelecionado, (Vertice)clicado);
-							view.refresh();
-							verticeSelecionado = null;
-						}
-
-					}
-				}
+			}
 		});
 
 		setVisible(true); 	
@@ -167,6 +154,17 @@ public class MainFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				grafo.resetGrafo();
+				view.refresh();
+			}
+		});
+
+		randomButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				grafo.resetGrafo();
+				String input = JOptionPane.showInputDialog("Digite o número de vértices do grafo");
+
+				grafo.grafoAleatorio(Integer.parseInt(input));
 				view.refresh();
 			}
 		});

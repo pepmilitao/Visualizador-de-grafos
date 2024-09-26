@@ -128,4 +128,45 @@ public class Grafo {
 		busca.clear();
 	}
 
+	public void grafoAleatorio(int n){
+		Random r = new Random();
+		ArrayList<ArrayList<Integer>> valores = new ArrayList<>();
+		for (int i = 0; i < n; i++){
+			ArrayList<Integer> coords = new ArrayList<>();
+			coords.add(50 + r.nextInt(750 - 50));
+			coords.add(50 + r.nextInt(500 - 50));
+			valores.add(coords);
+		}
+
+		Integer i = 1;
+		for (ArrayList<Integer> coords : valores) {
+			adicionarVertice(new Vertice(coords.get(0), coords.get(1), i.toString()));
+			i++;
+		}
+
+		Integer nArestas = r.nextInt((n*(n-1))/2); //no máximo, o grafo será completo. Poderão ter arestas repetidas que não serão mostradas
+
+		Set<Vertice> vertices = getVertices().keySet();
+		for (int j = 0; j < nArestas; j++){
+			Integer id1 = r.nextInt(n);
+			Integer id2 = r.nextInt(n);
+			Vertice v1 = null;
+			Vertice v2 = null;
+
+			if (id1 != id2) {
+				for (Vertice vertice : vertices) {
+					if (vertice.getId().equals(id1.toString())) {
+						v1 = vertice;
+					}
+
+					if (vertice.getId().equals(id2.toString())) {
+						v2 = vertice;
+					}
+				}
+			}
+			if (v1 != null && v2 != null) {
+				adicionarAresta(v1, v2);
+			}
+		}
+	}
 }
