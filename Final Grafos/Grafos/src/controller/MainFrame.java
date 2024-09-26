@@ -43,7 +43,8 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		setSize(MainFrame.LARGURA, MainFrame.ALTURA); 
 		setLayout(new BorderLayout());
-		setResizable(false); //Permitir ou não mudar o tamanho da tela!
+		setResizable(false); // Permitir ou não mudar o tamanho da tela!
+		setLocationRelativeTo(null); // A tela aparecerá no centro da tela
 		setModoJLabel(); 
 		// TO DO: Setar o modo, dar display no grafo, dar display no display de algoritmo
 		setMenu();
@@ -87,7 +88,7 @@ public class MainFrame extends JFrame {
 		JButton removeButton = new JButton("Remover");
         JButton resetButton = new JButton("Limpar");
         JButton randomButton = new JButton("Gerar grafo aleatório");
-        JButton buscaButton = new JButton("Executar busca em profundidade");
+        JButton buscaButton = new JButton("Busca em profundidade");
 
 		edgeButton.addActionListener(new ActionListener() {
 			@Override
@@ -176,6 +177,24 @@ public class MainFrame extends JFrame {
 					JOptionPane.showMessageDialog(null, "Erro: Digite um número inteiro válido.");
 				} catch (IllegalArgumentException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
+			}
+		});
+
+		buscaButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String inicial = JOptionPane.showInputDialog("Digite o vértice que começará a busca");
+				boolean found = false;
+				for (Vertice v : grafo.getVertices().keySet()) {
+					if (v.getId().equals(inicial)) {
+						found = true;
+						grafo.buscaProfundidade(v, view);
+						break;
+					}
+				}
+				if (!found) {
+					JOptionPane.showMessageDialog(null, "ERRO: Digite o id de um vértice que está no grafo");
 				}
 			}
 		});

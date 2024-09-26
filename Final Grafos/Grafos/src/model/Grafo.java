@@ -2,6 +2,8 @@ package model;
 import java.awt.Color;
 import java.util.*;
 
+import javax.swing.Timer;
+
 import view.GrafoView;
 
 
@@ -100,17 +102,17 @@ public class Grafo {
 		throw new Exception("O id não foi encontrado");
 	}
 
-	private void pausaExecucao(GrafoView grafo) {
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		grafo.refresh();
+	private void pausaExecucao(GrafoView view) {
+		Timer timer = new Timer(500, e -> {
+			view.refresh();
+		});
+		timer.setRepeats(false);
+		timer.start();
 	}
 
-	public List<Object> buscaProfundidade(Vertice verticeInicial) {
+	public List<Object> buscaProfundidade(Vertice verticeInicial, GrafoView view) {
 		verticeInicial.setCorVertice(1);
+		pausaExecucao(view);
 		busca.add(verticeInicial);
 		Aresta arestaaPintar = null;
 		List<Vertice> vizinhos = vertices.get(verticeInicial);
@@ -120,23 +122,22 @@ public class Grafo {
 				String arestaPintar2 = ("Aresta <" + verticeVizinho.getId() + " -> " + verticeInicial.getId() + ">");
 				// a aresta pode estar no formato 12 ou 21, precisamos considerar ambos os casos para saber quando pintar
 				for (Aresta aresta:arestas){
-					if (aresta.getName().equals(arestaPintar1)){
+					if (aresta.getName().equals(arestaPintar1) || aresta.getName().equals(arestaPintar2)){
 						arestaaPintar = aresta; 
 						arestaaPintar.setCorAresta(1);
+						pausaExecucao(view);
 						busca.add(arestaaPintar);
-						break;
-					}
-					else if (aresta.getName().equals(arestaPintar2)){
-						arestaaPintar = aresta;
-						arestaaPintar.setCorAresta(1); 
-						busca.add(arestaaPintar); 
 					}
 				}
-				buscaProfundidade(verticeVizinho);
+				buscaProfundidade(verticeVizinho, view);
 			}
 		}
 		verticeInicial.setCorVertice(2);
-		arestaaPintar.setCorAresta(2); 
+		pausaExecucao(view);
+		if (arestaaPintar != null) {
+			arestaaPintar.setCorAresta(2); 
+			pausaExecucao(view);
+		}
 		return busca;
 	}
 

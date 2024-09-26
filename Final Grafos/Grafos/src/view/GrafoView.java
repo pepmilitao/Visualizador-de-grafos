@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Set;
 import java.util.List;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import model.Aresta;
 import model.Grafo;
