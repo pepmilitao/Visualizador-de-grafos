@@ -1,0 +1,55 @@
+@startuml fluxo
+start
+
+:Início do Programa;
+:Classe Main;
+
+:Cria Nova Instância de MainFrame;
+
+:Exibição da Interface;
+
+repeat
+  :Seleção de Modo;
+  :Atualiza Modo;
+  
+  if (Modo Selecionado?) then (sim)
+    repeat
+      if (Adicionar Vértice?) then (sim)
+        :Adicionar Vértice;
+        :adicionarVertice(Vertice vertice);
+      else if (Adicionar Aresta?) then (sim)
+        :Adicionar Aresta;
+        :adicionarAresta(Vertice vertice1, Vertice vertice2);
+      else if (Remover Vértice?) then (sim)
+        :Remover Vértice;
+        :removerVertice(Vertice vertice);
+      else if (Remover Aresta?) then (sim)
+        :Remover Aresta;
+        :removerAresta(Aresta aresta);
+      endif
+    repeat while (Modo Selecionado?)
+  endif
+
+  :Atualização do Modelo;
+  :Visualização do Grafo;
+
+  if (Executar Algoritmo de Busca?) then (sim)
+    :Usuário Seleciona Algoritmo;
+    :Controlador Chama método;
+    :Executar Busca;
+    :Destacar Iterações;
+  endif
+
+  if (Gerar Grafo Aleatório?) then (sim)
+    :Usuário Define Número de Vértices;
+    :Controlador Chama gerar_grafo_aleatorio(n);
+    :Grafo Gerado e Visualizado;
+  endif
+
+repeat while (Continuar Usando o Programa?)
+
+:Finalização;
+:Fechar Programa;
+
+stop
+@enduml
