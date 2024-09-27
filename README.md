@@ -56,7 +56,6 @@ O programa inicia e a classe `Main` cria uma nova instância de `MainFrame`.
 
 ### Exibição da Interface
 - A janela principal é exibida, com um menu para interações.  
-- O modo atual (Adicionar Vértice, Adicionar Aresta, etc.) é mostrado na interface.
 
 ### Seleção de Modo
 - O usuário seleciona um modo através do menu (ex: Adicionar Vértice).  
